@@ -16,9 +16,9 @@ function geoFindMe()
 
         output.innerHTML = "<p>Latitude is"+ latitued + '° <br>Longitude is  '+  longitude +"° </p>";
 
-        var img = new Image();
-        img.src = "https://maps.googleapis.com/maps/api/staticmap?center="+latitued+","+longitude+"&zoom=13&siz300x300&sensor=false";
-        output.appendChild(img);
+        //var img = new Image();
+        //img.src = "https://maps.googleapis.com/maps/api/staticmap?center="+latitued+","+longitude+"&zoom=13&siz300x300&sensor=false";
+        //output.appendChild(img);
     };
     function error()
     {
