@@ -10,7 +10,7 @@
             padding: 0;
         }
         #map{
-            height:100%;
+            height:50%;
         }
     </style>
     <title>Simple Click Event</title>
@@ -19,9 +19,10 @@
 <div id="map"></div>
 <script>
     function initMap(){
-        var myLatlng = {lat: -25.363, lng: 131.044};
+        console.log("init Map");
+        var myLatlng = {lat:  35.685175, lng: 139.7528 };
         var map = new google.maps.Map(document.getElementById('map'),{
-            zoom:4,
+            zoom:15,
             center: myLatlng
         });
 
@@ -30,17 +31,31 @@
             map: map,
             title: 'click to zoom'
         });
+        console.log("marker is defined");
 
-        map.addListener('center_changed', function(){
+        /*map.addListener('center_changed', function(){
             //3 sec after the center of the map has changed, pan back to the marker
             window.setTimeout(function(){
                 map.panTo(marker.getPosition());
             }, 3000);
+        });*/
+
+        console.log("before listener");
+        /*marker.addListner('click', function (){
+         //map.setZoom(8);
+         //map.setCenter(marker.getPosition());
+        });*/
+        google.maps.event.addListener(map,"click", function(event){
+            //document.write("<h1>Here is in addListener</h1>");
+            console.log("IN addListener");
+
+            var latitude = event.latLng.lat();
+            var longitude = event.latLng.lng();
+           // var latitude = event.latLng.lat();
+            //var longitude = event.latLng.lng();
+            console.log("latitude : "+ latitude + "longitude" + longitude);
         });
-        marker.addListener('click', function(){
-            map.setZoom(8);
-            map.setCenter(marker.getPosition());
-        });
+        console.log();
     }//initMap
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCylp7-GCvkEn4ZYWTtGiGVeMdBAuT_bw&signed_in=true&callback=initMap" async defer></script>
