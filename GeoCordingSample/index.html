@@ -18,8 +18,10 @@
 <body>
 <h1>Click a point where you want to pick up</h1>
 <div id="map"></div>
-<div id=""
+<div id="aaa"></div>
 <script>
+    var pick_lat;
+    var pick_lng;
     function initMap(pick){
         var output = document.getElementById('map');
         if(!navigator.geolocation)
@@ -41,7 +43,7 @@
                 center: myLatlng
             });
             console.log("map is defined");
-            //cdefine google marker
+            //cdefine google marker(defining a pin on google map)
             var marker = new google.maps.Marker({
                 position:myLatlng,
                 map:map,
@@ -53,8 +55,9 @@
             google.maps.event.addListener(map, "click", function (event){
                 //call back for click event.
                 console.log("in addlistener");
-                var pick_lat = event.latLng.lat();
-                var pick_lng = event.latLng.lng();
+                pick_lat = event.latLng.lat();
+                pick_lng = event.latLng.lng();
+                marker.setPosition(event.latLng);
                 console.log("clicking position");
                 console.log("latitude: "+ pick_lat + "lng : " + pick_lng);
             });
@@ -121,8 +124,14 @@
         console.log(pick);
         //return pick;*/
     }//initMap
-    console.log("out side of initMap "+ pick.latitude);
+    console.log("out side of initMap "+ pick_lat + pick_lng);
 
+
+
+    function newFunc()
+    {
+        console.log("PICK UP LOC:" + pick_lat +" & "+ pick_lng);
+    }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCylp7-GCvkEn4ZYWTtGiGVeMdBAuT_bw&signed_in=true&callback=initMap" async defer></script>
 
