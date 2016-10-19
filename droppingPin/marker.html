@@ -1,10 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Simple markers</title>
+    <style>
+        html, body {
+            height: 70%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            height: 100%;
+        }
+    </style>
 </head>
 <body>
+<div id="map"></div>
+<script>
+    var map;
+    var marker;
 
+    function initMap() {
+        var myLatLng = {lat: -25.363, lng: 131.044};
+
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 4,
+            center: myLatLng
+        });
+
+        marker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            title: 'Hello World!'
+        });
+
+        map.addListener('click', function(e) {
+            marker.setPosition(e.latLng);
+            console.log(e.latLng.lat());
+            console.log(e.latLng.lng());
+            console.log(e.latLng);
+        });
+    }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCylp7-GCvkEn4ZYWTtGiGVeMdBAuT_bw&callback=initMap"></script>
 </body>
 </html>

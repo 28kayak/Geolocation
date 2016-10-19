@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewpoint" content="initial-scale=1.0" user0scalable="no">
+    <title>Direction Sample</title>
+    <style>
+        #map{
+            height:50%;
+        }
+    </style>
+</head>
+<body>
+<h1>Google Map with route</h1>
+
+
+<div id="map"></div>
+<script>
+    function initMap()
+    {
+        var output = document.getElementById('map');
+        /*
+        if(!navigator.geolocation)
+        {
+            //check if the browser is ready to use geolocation
+            output.innerHTML = "<p>Geolocaｔtion is not supported by your browser </p>";
+            return;
+        }
+        */
+        console.log("in initMap");
+        var chicago = {lat: 41.85, lng: -87.65};
+        var indianapolis = {lat: 39.79, lng: -86.14};
+        //var mapinfo = {center: chicago, scrollwheel: false, zoom: 7};
+        console.log("map info is defined.");
+
+        var map = new google.maps.Map(output,{
+            zoom: 7,
+            center: chicago
+            //scrollwheel: false
+        });//var map
+
+        var directionsDisplay = new google.maps.DirectionsRenderer({
+            map:map
+        });
+        //set destination, origin and travel mode.
+        var request = {
+            destination: indianapolis,
+            origin: chicago,
+            travelMode: 'DRIVING'
+        };
+        //pass the direction request to the directions service
+        var directionService = new google.maps.DirectionsService();
+        directionService.route(request, function(response, status){
+            if(status == 'OK')
+            {
+                console.log("status is ok");
+                //display the route on the map
+                directionsDisplay.setDirections(response);
+                //directionsDisplay.setDirections(response);
+                console.log("after set directions");
+            }
+        });//route()
+        console.log("after init");
+        //AIzaSyBTgI3PszG0BJa3EYrpbNPU2uM0jfz_7M8
+    }//initMap
+
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTgI3PszG0BJa3EYrpbNPU2uM0jfz_7M8&callback=initMap" async defer></script>
+</body>
+</html>
+
