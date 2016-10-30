@@ -52,10 +52,10 @@ sampleApp.controller('MapCtrl', ['$scope',function ($scope) {
         $scope.longitude = position.coords.longitude;
         console.log("latitude: "+ $scope.latitued + "longitude: " + $scope.longitude );
         //define map option using getCurrent position
-        var currentPos =  {lat: $scope.latitued, lng: $scope.longitude };
+        $scope.currentPos =  {lat: $scope.latitued, lng: $scope.longitude };
         var mapOptions = {
             zoom: 15,
-            center: currentPos,
+            center: $scope.currentPos,
             mapTypeId: google.maps.MapTypeId.TERRAIN
         }
         //define google map
@@ -88,8 +88,23 @@ sampleApp.controller('MapCtrl', ['$scope',function ($scope) {
         //set initial marker
         var marker = new google.maps.Marker({
             map: $scope.map,
-            position: currentPos
+            position: $scope.currentPos
         });
+        //add Event Listener
+        google.maps.event.addListener($scope.map, 'click', function (event) {
+            var pick_lat = event.latLng.lat();
+            var pick_lng = event.latLng.lng();
+            $scope.currentPos = {
+                lat: pick_lat,
+                lng: pick_lng
+            };
+            marker.setPosition($scope.currentPos);
+            console.log($scope.currentPos.lat);
+            console.log($scope.currentPos.lng);
+
+        });
+
+
         $scope.openInfoWindow = function(e, selectedMarker){
             e.preventDefault();
             google.maps.event.trigger(selectedMarker, 'click');
