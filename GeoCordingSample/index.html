@@ -27,9 +27,15 @@
         if(!navigator.geolocation)
         {
             output.innerHTML = "<p>Geolocation is not supported by your browser </p>";
+            //console.log(position);
         }
         function success(position)
         {
+            console.log(position);
+            console.log(navigator);
+            console.log("Show navigator geolocation getCurrenPosition");
+            //console.log(navigator.geolocation.getCurrentPosition());
+            console.log();
             console.log("in success function");
             //get Current position of Chrome/firefox
             var latitued = position.coords.latitude;
