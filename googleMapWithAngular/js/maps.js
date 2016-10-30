@@ -40,7 +40,17 @@ sampleApp.controller('MapCtrl', function ($scope) {
     //define mapOption
     //center: current position
     //zoom: 15
-    navigator.geolocation.getCurrentPosition(success, err, options);
+    console.log("in controller");
+    if (!navigator.geolocation){
+        output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+        return;
+    }
+    console.log("before calling get Current position");
+    navigator.geolocation.getCurrentPosition(success, err);
+
+
+});//controller
+function success($scope) {
     var mapOptions = {
         zoom: 4,
         center: new google.maps.LatLng(25,80),
@@ -80,4 +90,9 @@ sampleApp.controller('MapCtrl', function ($scope) {
         google.maps.event.trigger(selectedMarker, 'click');
     }//openInfoWindow
 
-});
+
+}//success
+function err(){
+    console.log("in error function");
+    output.innerHTML = "Unable to retrieve your location";
+}
